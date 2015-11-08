@@ -13,7 +13,7 @@ par(mfrow = c(2,2))
 with(epcdata, {
   plot(newdate, Global_active_power, type = "l", ylab = "Global Active Power (kilowatts)", xlab = "")
   plot(newdate, Voltage, type = "l", ylab = "Voltage", xlab = "datetime")
-  plot(newdate,Sub_metering_1, type = "l", ylab = "Engery sub metering", xlab = "", col = "black")
+  plot(newdate,Sub_metering_1, type = "l", ylab = "Energy sub metering", xlab = "", col = "black")
   lines(newdate, Sub_metering_2, col = "red")
   lines(newdate, Sub_metering_3, col = "blue")
   legend("topright", lty = 1, bty = "n", col = c("black", "red", "blue"), legend = c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"))
