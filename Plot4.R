@@ -1,0 +1,22 @@
+png(filename = "Plot4.png", width = 480, height = 480)
+temp <- read.csv2("household_power_consumption.txt", colClasses = "character")
+temp$Date <- as.Date(temp$Date, "%d/%m/%Y")
+epcdata <- temp[temp$Date == "2007-02-01" | temp$Date == "2007-02-02",]
+epcdata$Sub_metering_1 <- as.numeric(epcdata$Sub_metering_1)
+epcdata$Sub_metering_2 <- as.numeric(epcdata$Sub_metering_2)
+epcdata$Sub_metering_3 <- as.numeric(epcdata$Sub_metering_3)
+epcdata$Global_active_power <- as.numeric(epcdata$Global_active_power)
+epcdata$Voltage <- as.numeric(epcdata$Voltage)
+epcdata$newdate <- as.POSIXct(paste(epcdata$Date, epcdata$Time))
+
+par(mfrow = c(2,2))
+with(epcdata, {
+  plot(newdate, Global_active_power, type = "l", ylab = "Global Active Power (kilowatts)", xlab = "")
+  plot(newdate, Voltage, type = "l", ylab = "Voltage", xlab = "datetime")
+  plot(newdate,Sub_metering_1, type = "l", ylab = "Engery sub metering", xlab = "", col = "black")
+  lines(newdate, Sub_metering_2, col = "red")
+  lines(newdate, Sub_metering_3, col = "blue")
+  legend("topright", lty = 1, bty = "n", col = c("black", "red", "blue"), legend = c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"))
+  plot(newdate,Global_reactive_power, type = "l", xlab = "datetime", ylim = c(0,0.5))
+  })
+dev.off()

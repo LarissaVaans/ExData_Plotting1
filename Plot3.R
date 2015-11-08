@@ -1,0 +1,13 @@
+png(filename = "Plot3.png", width = 480, height = 480)
+temp <- read.csv2("household_power_consumption.txt", colClasses = "character")
+temp$Date <- as.Date(temp$Date, "%d/%m/%Y")
+epcdata <- temp[temp$Date == "2007-02-01" | temp$Date == "2007-02-02",]
+epcdata$Sub_metering_1 <- as.numeric(epcdata$Sub_metering_1)
+epcdata$Sub_metering_2 <- as.numeric(epcdata$Sub_metering_2)
+epcdata$Sub_metering_3 <- as.numeric(epcdata$Sub_metering_3)
+epcdata$newdate <- as.POSIXct(paste(epcdata$Date, epcdata$Time))
+plot(epcdata$newdate,epcdata$Sub_metering_1, type = "l", ylab = "Engery sub metering", xlab = "", col = "black")
+lines(epcdata$newdate, epcdata$Sub_metering_2, col = "red")
+lines(epcdata$newdate, epcdata$Sub_metering_3, col = "blue")
+legend("topright", lty = 1, col = c("black", "red", "blue"), legend = c("Sub_metering_1", "Sub_metering_2", "Sub_metering_3"))
+dev.off()
